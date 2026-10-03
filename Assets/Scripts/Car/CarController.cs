@@ -119,6 +119,8 @@ public class CarController : MonoBehaviour
         // Mathf.Sign inverte o giro na ré.
         float curve = turningCurve.Evaluate(Mathf.Abs(carVelocityRatio));
         carRB.AddTorque(steerStrength * steerInput * curve * Mathf.Sign(carVelocityRatio) * transform.up, ForceMode.Acceleration);
+
+        Debug.Log($"move: {moveInput} | steer: {steerInput} | ratio: {carVelocityRatio}");
     }
 
     private void SidewaysDrag()
