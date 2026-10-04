@@ -299,6 +299,7 @@ GameObject:
   - component: {fileID: 8725784084714815776}
   - component: {fileID: 5613206425062113114}
   - component: {fileID: 5789341245354402331}
+  - component: {fileID: -8962339722774703048}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -514,8 +515,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 0
+  m_Actions: {fileID: -944628639613478452, guid: 9dd3ff50d8bd8fd45aad53cd0bff6ae1, type: 3}
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -526,9 +527,27 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 51ba531d-9517-4cfd-bf2a-6611c3a7f67e
+    m_ActionName: 'Car/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Car
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 7020424335749648463}
+--- !u!114 &-8962339722774703048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6077648635166748993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69d1d23e8106284e9fd35c9ca252cee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProgressoNaCorrida
+  totalDeCheckpoints: 5
+  voltasParaVencer: 3
