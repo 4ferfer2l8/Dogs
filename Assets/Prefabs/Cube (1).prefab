@@ -414,7 +414,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6077648635166748993}
   serializedVersion: 5
-  m_Mass: 1000
+  m_Mass: 400
   m_LinearDamping: 0
   m_AngularDamping: 2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -468,16 +468,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   accelerationpoint: {fileID: 3819108230112434766}
-  centerOfMass: {x: 0, y: -0.2, z: 0}
-  springStiffness: 25000
-  damperStiffness: 2500
+  centerOfMass: {x: 0, y: -0.4, z: 0}
+  springStiffness: 8000
+  damperStiffness: 800
   restLength: 0.3
   springTravel: 0.2
   wheelRadius: 0.33
   acceleration: 14
-  maxSpeed: 25
+  maxSpeed: 22
   deceleration: 6
-  steerStrength: 8
+  steerStrength: 15
   turningCurve:
     serializedVersion: 2
     m_Curve:
@@ -491,8 +491,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 0.6096599
+      value: 1.0728983
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -502,7 +502,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  dragCoefficient: 4
+  dragCoefficient: 6
 --- !u!114 &5789341245354402331
 MonoBehaviour:
   m_ObjectHideFlags: 0
