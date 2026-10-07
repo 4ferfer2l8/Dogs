@@ -1,23 +1,21 @@
 using UnityEngine;
 
-// Versão simples: não precisa de WheelPivot nem de hierarquia especial.
-// Cada roda fica onde está no modelo; o script só soma um deslocamento
-// (suspensão), um esterço e um giro em cima da posição original.
 public class CarWheelVisuals : MonoBehaviour
 {
     [System.Serializable]
     public class Wheel
     {
-        public Transform mesh;       // o modelo da roda (ex: Wheel_Front_Left)
+        public Transform mesh;       // a roda em si (não o EixoRodas)
         public bool isFrontWheel;    // só as da frente esterçam
 
-        [HideInInspector] public Vector3 startLocalPos;      // posição relativa ao carro
-        [HideInInspector] public Quaternion startLocalRot;   // rotação relativa ao carro
+        [HideInInspector] public Quaternion startLocalRot;   // rotação inicial relativa ao carro
+        [HideInInspector] public Vector3 startCenterLocal;   // centro visual da roda relativo ao carro
+        [HideInInspector] public Vector3 pivotToCenter;      // do pivô até o centro, no espaço da roda
         [HideInInspector] public float spinAngle;
     }
 
     [SerializeField] private CarController car;
-    [SerializeField] private Wheel[] wheels;   // MESMA ordem do array rayPoints: FL, FR, RL, RR
+    [SerializeField] private Wheel[] wheels;   // MESMA ordem dos rayPoints: FL, FR, RL, RR
     [SerializeField] private float maxSteerAngle = 30f;
     [SerializeField] private float steerSmoothing = 10f;
 
@@ -25,11 +23,18 @@ public class CarWheelVisuals : MonoBehaviour
 
     private void Start()
     {
-        // Guarda onde cada roda está no começo, em relação ao carro.
         foreach (Wheel w in wheels)
         {
-            w.startLocalPos = car.transform.InverseTransformPoint(w.mesh.position);
+            if (w.mesh == null) continue;
+
             w.startLocalRot = Quaternion.Inverse(car.transform.rotation) * w.mesh.rotation;
+
+            // Centro real da roda (independe de onde está o pivô do modelo)
+            Renderer r = w.mesh.GetComponentInChildren<Renderer>();
+            Vector3 centerWorld = r != null ? r.bounds.center : w.mesh.position;
+
+            w.startCenterLocal = car.transform.InverseTransformPoint(centerWorld);
+            w.pivotToCenter = Quaternion.Inverse(w.mesh.rotation) * (centerWorld - w.mesh.position);
         }
     }
 
@@ -43,20 +48,24 @@ public class CarWheelVisuals : MonoBehaviour
         for (int i = 0; i < wheels.Length; i++)
         {
             Wheel w = wheels[i];
+            if (w.mesh == null) continue;
 
-            // Suspensão: mola mais curta que o repouso = roda sobe em relação ao corpo.
+            // Suspensão: mola mais curta que o repouso = roda sobe
             float offset = car.RestLength - car.GetSpringLength(i);
-            Vector3 basePos = car.transform.TransformPoint(w.startLocalPos);
-            w.mesh.position = basePos + car.transform.up * offset;
 
-            // Esterço (só frente) + giro
             float steer = w.isFrontWheel ? currentSteerAngle : 0f;
             w.spinAngle += spinDelta;
 
-            w.mesh.rotation = car.transform.rotation
-                              * Quaternion.Euler(0f, steer, 0f)
-                              * Quaternion.Euler(w.spinAngle, 0f, 0f)
-                              * w.startLocalRot;
+            Quaternion rot = car.transform.rotation
+                             * Quaternion.Euler(0f, steer, 0f)
+                             * Quaternion.Euler(w.spinAngle, 0f, 0f)
+                             * w.startLocalRot;
+
+            Vector3 centerPos = car.transform.TransformPoint(w.startCenterLocal)
+                                + car.transform.up * offset;
+
+            w.mesh.rotation = rot;
+            w.mesh.position = centerPos - rot * w.pivotToCenter;
         }
     }
 }

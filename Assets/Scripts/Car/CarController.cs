@@ -38,7 +38,7 @@ public class CarController : MonoBehaviour
 
     #region Public API (input + dados para as rodas)
 
-    public float SteerInput => steerInput;
+    public float SteerInput => -steerInput;   // ALTERADO: sinal invertido para as rodas esterçarem certo
     public float ForwardSpeed => currentCarLocalVelocity.z;
     public float WheelRadius => wheelRadius;
     public float RestLength => restLength;
@@ -48,8 +48,8 @@ public class CarController : MonoBehaviour
     // Quem controla o carro (jogador, IA, replay...) chama isto.
     public void SetInput(float move, float steer)
     {
-        moveInput = Mathf.Clamp(move, -1f, 1f);
-        steerInput = Mathf.Clamp(steer, -1f, 1f);
+        moveInput = -Mathf.Clamp(move, -1f, 1f);    // ALTERADO: modelo olha para -Z
+        steerInput = -Mathf.Clamp(steer, -1f, 1f);  // ALTERADO: modelo olha para -Z
     }
 
     #endregion
