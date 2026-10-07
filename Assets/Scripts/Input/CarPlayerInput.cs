@@ -7,6 +7,8 @@ public class CarPlayerInput : MonoBehaviour
 {
     [SerializeField] private CarController car;
 
+    public bool PodeDirigir { get; set; } = false;
+
     private InputAction moveAction;
 
     private void Awake()
@@ -18,6 +20,13 @@ public class CarPlayerInput : MonoBehaviour
 
     private void Update()
     {
+
+        if (!PodeDirigir)
+        {
+            car.SetInput(0f, 0f);  
+            return;
+        }
+
         Vector2 move = moveAction.ReadValue<Vector2>();
         car.SetInput(move.y, move.x);
     }

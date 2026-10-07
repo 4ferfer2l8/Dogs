@@ -669,6 +669,9 @@ GameObject:
   m_Component:
   - component: {fileID: 646503023}
   - component: {fileID: 646503022}
+  - component: {fileID: 646503024}
+  - component: {fileID: 646503026}
+  - component: {fileID: 646503025}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -706,6 +709,43 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &646503024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646503021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff0d06e03b42ff47bbda43f252dca80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GerenciadorDeCorrida
+--- !u!114 &646503025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646503021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d8768f2bc3c8d43ac6eadac3924f9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LargadaDaCorrida
+  segundos: 3
+--- !u!114 &646503026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 646503021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44fe4da41c95b1e428f0d69b12c0ca25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EntradaAutomatica
 --- !u!1 &687024285
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,13 +778,37 @@ MonoBehaviour:
   m_NotificationBehavior: 2
   m_MaxPlayerCount: 2
   m_AllowJoining: 1
-  m_JoinBehavior: 0
+  m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 646503022}
         m_TargetAssemblyTypeName: GerenciadorDeLargada, Assembly-CSharp
         m_MethodName: AoEntrarJogador
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 646503024}
+        m_TargetAssemblyTypeName: GerenciadorDeCorrida, Assembly-CSharp
+        m_MethodName: RegistrarJogador
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 646503025}
+        m_TargetAssemblyTypeName: LargadaDaCorrida, Assembly-CSharp
+        m_MethodName: RegistrarJogador
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
