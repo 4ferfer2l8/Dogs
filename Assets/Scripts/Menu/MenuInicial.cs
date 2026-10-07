@@ -6,6 +6,13 @@ using UnityEngine.UI;
 public class MenuInicial : MonoBehaviour
 {
     [SerializeField] private string cenaDaCorrida = "Corrida";
+    [SerializeField] private GameObject painelInicial;
+    [SerializeField] private GameObject painelMenu;
+    public void AbrirMenu()
+    {
+        painelInicial.SetActive(false);
+        painelMenu.SetActive(true);
+    }
     public void Jogar()
     {
         StartCoroutine(CarregarCorrida());
