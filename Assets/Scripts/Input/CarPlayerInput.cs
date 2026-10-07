@@ -29,5 +29,6 @@ public class CarPlayerInput : MonoBehaviour
 
         Vector2 move = moveAction.ReadValue<Vector2>();
         car.SetInput(move.y, move.x);
+        Debug.Log($"throttle={move.y} steer={move.x}");
     }
 }
