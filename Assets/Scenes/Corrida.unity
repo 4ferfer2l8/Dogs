@@ -196,7 +196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 211602346}
   - component: {fileID: 211602345}
-  - component: {fileID: 211602347}
   m_Layer: 0
   m_Name: CercaEsquerda
   m_TagString: Untagged
@@ -219,7 +218,7 @@ MonoBehaviour:
   m_Container: {fileID: 1590760762}
   m_ItemsToInstantiate:
   - prefab: {fileID: 0}
-    Prefab: {fileID: 3462091642149812864, guid: 493e879525cc08342ad9007888a7a81d, type: 3}
+    Prefab: {fileID: 4652782109385016792, guid: 69699bc8a8670b14cb30797dca1bddc7, type: 3}
     probability: 0
     Probability: 0
   m_Method: 1
@@ -269,28 +268,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &211602347
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 211602344}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 62fa28cbb204e4546a2ad5c1580ee188, type: 3}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,7 +472,6 @@ GameObject:
   m_Component:
   - component: {fileID: 522012956}
   - component: {fileID: 522012955}
-  - component: {fileID: 522012954}
   m_Layer: 0
   m_Name: CercaDireita
   m_TagString: Untagged
@@ -503,28 +479,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &522012954
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522012953}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 62fa28cbb204e4546a2ad5c1580ee188, type: 3}
 --- !u!114 &522012955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +494,7 @@ MonoBehaviour:
   m_Container: {fileID: 1590760762}
   m_ItemsToInstantiate:
   - prefab: {fileID: 0}
-    Prefab: {fileID: 3462091642149812864, guid: 493e879525cc08342ad9007888a7a81d, type: 3}
+    Prefab: {fileID: 4652782109385016792, guid: 69699bc8a8670b14cb30797dca1bddc7, type: 3}
     probability: 0
     Probability: 0
   m_Method: 1
