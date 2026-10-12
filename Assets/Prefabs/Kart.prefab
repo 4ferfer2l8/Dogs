@@ -1050,7 +1050,7 @@ MonoBehaviour:
   centerOfMass: {x: 0, y: -0.2, z: 0}
   springStiffness: 8000
   damperStiffness: 800
-  restLength: 0.15
+  restLength: -0.1
   springTravel: 0.2
   wheelRadius: 0.33
   acceleration: 14
