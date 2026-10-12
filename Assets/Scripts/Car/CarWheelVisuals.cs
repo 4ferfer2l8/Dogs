@@ -94,8 +94,8 @@ public class CarWheelVisuals : MonoBehaviour
 
         if (logDebug && Time.frameCount % 30 == 0)
         {
-            Debug.Log($"[Rodas] speed={forwardSpeed:F2} steer={steerInput:F2} raio={raio:F2} " +
-                      $"rest={car.RestLength:F3} mola0={car.GetSpringLength(0):F3} spinDelta={spinDelta:F2}", this);
+            //Debug.Log($"[Rodas] speed={forwardSpeed:F2} steer={steerInput:F2} raio={raio:F2} " +
+                      //$"rest={car.RestLength:F3} mola0={car.GetSpringLength(0):F3} spinDelta={spinDelta:F2}", this);
         }
 
         for (int i = 0; i < wheels.Length; i++)

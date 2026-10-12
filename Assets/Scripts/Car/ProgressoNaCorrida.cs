@@ -12,6 +12,7 @@ public class ProgressoNaCorrida : MonoBehaviour
     private bool jaDeuAVoltaCompleta = false;
 
     public int VoltasCompletas => voltasCompletas;
+    public int ProximoCheckpoint => proximoCheckpoint;
 
     public event Action<ProgressoNaCorrida, int> AoCompletarVolta;
     public event Action<ProgressoNaCorrida> AoTerminarCorrida;
