@@ -4005,6 +4005,7 @@ GameObject:
   - component: {fileID: 1442757028293816299}
   - component: {fileID: 6508395955577191751}
   - component: {fileID: 1166845298706115035}
+  - component: {fileID: 3054958424614013015}
   m_Layer: 0
   m_Name: Kart
   m_TagString: Untagged
@@ -4050,6 +4051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ProgressoNaCorrida
   totalDeCheckpoints: 5
   voltasParaVencer: 3
+  tempoParaVoltarAoMenu: 5
 --- !u!114 &7141495877696883863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4200,7 +4202,7 @@ MonoBehaviour:
   maxSteerAngle: 30
   steerSmoothing: 5
   inverterGiro: 1
-  logDebug: 1
+  logDebug: 0
 --- !u!65 &3677313072886490377
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4276,15 +4278,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03822f2fb1174846aa9c18365514e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DetectorContramao
-  progresso: {fileID: 5785502900907116006}
-  checkpoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  tempoParaAvisar: 1.5
+  fontePista: {fileID: 0}
   piloto: {fileID: 222523079187798517}
+  tempoParaAvisar: 1.5
+  limiarAlinhamento: -0.2
+--- !u!114 &3054958424614013015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8791399810461296232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c90e7399bf9664ca1600e6b2a97a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarWheelVisuals
+  car: {fileID: 5045967528364130419}
+  wheels:
+  - mesh: {fileID: 6387877402091021606}
+    isFrontWheel: 1
+    startLocalRot: {x: 0, y: 0, z: 0, w: 0}
+    startCenterLocal: {x: 0, y: 0, z: 0}
+    pivotToCenter: {x: 0, y: 0, z: 0}
+    spinAngle: 0
+  - mesh: {fileID: 7899739369148595}
+    isFrontWheel: 1
+    startLocalRot: {x: 0, y: 0, z: 0, w: 0}
+    startCenterLocal: {x: 0, y: 0, z: 0}
+    pivotToCenter: {x: 0, y: 0, z: 0}
+    spinAngle: 0
+  - mesh: {fileID: 1373841047746130885}
+    isFrontWheel: 0
+    startLocalRot: {x: 0, y: 0, z: 0, w: 0}
+    startCenterLocal: {x: 0, y: 0, z: 0}
+    pivotToCenter: {x: 0, y: 0, z: 0}
+    spinAngle: 0
+  - mesh: {fileID: 2766305060616186205}
+    isFrontWheel: 0
+    startLocalRot: {x: 0, y: 0, z: 0, w: 0}
+    startCenterLocal: {x: 0, y: 0, z: 0}
+    pivotToCenter: {x: 0, y: 0, z: 0}
+    spinAngle: 0
+  maxSteerAngle: 30
+  steerSmoothing: 10
+  inverterGiro: 1
+  logDebug: 0
 --- !u!1 &9000710263256875410
 GameObject:
   m_ObjectHideFlags: 0

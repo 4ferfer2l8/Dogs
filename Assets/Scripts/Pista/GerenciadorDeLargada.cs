@@ -1,7 +1,6 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Splines;
 
 public class GerenciadorDeLargada : MonoBehaviour
 {
@@ -23,7 +22,7 @@ public class GerenciadorDeLargada : MonoBehaviour
     {
         var detector = jogador.GetComponentInChildren<DetectorContramao>();
         if (detector != null)
-            detector.DefinirPista(FindFirstObjectByType<SplineContainer>());
+            detector.DefinirPista(FindFirstObjectByType<CaminhoDaPista>());
 
         if (proximoPonto >= pontosDeLargada.Length) return;
 

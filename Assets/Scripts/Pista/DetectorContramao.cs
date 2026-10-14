@@ -1,21 +1,35 @@
 using System;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Splines;
 
 public class DetectorContramao : MonoBehaviour
 {
-    [SerializeField] private SplineContainer pista;
+    // Arraste aqui o CaminhoDaPista (ou qualquer MonoBehaviour que implemente IDirecaoDaPista)
+    [SerializeField] private MonoBehaviour fontePista;
     [SerializeField] private CarPlayerInput piloto;
     [SerializeField] private float tempoParaAvisar = 1.5f;
     [SerializeField] private float limiarAlinhamento = -0.2f;
 
+    private IDirecaoDaPista pista;
     private float tempoNaContramao = 0f;
     private bool avisando = false;
 
     public event Action<bool> AoMudarEstado;
 
-    public void DefinirPista(SplineContainer container) => pista = container;
+    public void DefinirPista(IDirecaoDaPista novaPista) => pista = novaPista;
+
+    private void Awake()
+    {
+        if (pista == null) pista = fontePista as IDirecaoDaPista;
+    }
+
+    private void OnValidate()
+    {
+        if (fontePista != null && fontePista is not IDirecaoDaPista)
+        {
+            Debug.LogWarning($"{fontePista.name} não implementa IDirecaoDaPista.", this);
+            fontePista = null;
+        }
+    }
 
     private void Update()
     {
@@ -28,16 +42,8 @@ public class DetectorContramao : MonoBehaviour
             return;
         }
 
-        // Ponto da spline mais próximo do kart; t = posição ao longo dela (0 a 1)
-        SplineUtility.GetNearestPoint(
-            pista.Spline,
-            pista.transform.InverseTransformPoint(transform.position),
-            out float3 _,
-            out float t);
-
-        // Tangente = direção do traçado naquele ponto
-        float3 tangenteLocal = pista.Spline.EvaluateTangent(t);
-        Vector3 direcaoDaPista = pista.transform.TransformDirection((Vector3)tangenteLocal);
+        // Direção do traçado no ponto da pista mais próximo do kart
+        if (!pista.TentarObterDirecao(transform.position, out Vector3 direcaoDaPista)) return;
         direcaoDaPista.y = 0f;
 
         Vector3 frenteDoKart = transform.forward;

@@ -1,10 +1,16 @@
 using System;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ProgressoNaCorrida : MonoBehaviour
 {
     [SerializeField] private int totalDeCheckpoints = 4;
     [SerializeField] private int voltasParaVencer = 3;
+
+    
+    [SerializeField] private float tempoParaVoltarAoMenu = 5f;
+
 
     private int proximoCheckpoint = 0;
     private int voltasCompletas = 0;
@@ -28,8 +34,10 @@ public class ProgressoNaCorrida : MonoBehaviour
             voltasCompletas++;
             AoCompletarVolta?.Invoke(this, voltasCompletas);
 
-            if (voltasCompletas >= voltasParaVencer)
+            if (voltasCompletas >= voltasParaVencer){
                 AoTerminarCorrida?.Invoke(this);
+                StartCoroutine(VoltarAoMenu());
+                }
         }
 
         // Avança para o próximo, voltando ao 0 depois do último
@@ -41,4 +49,9 @@ public class ProgressoNaCorrida : MonoBehaviour
 
         Debug.Log($"{name} passou pelo checkpoint {indice}. Próximo: {proximoCheckpoint}. Voltas completas: {voltasCompletas}");
     }
+    private IEnumerator VoltarAoMenu()
+{
+    yield return new WaitForSecondsRealtime(tempoParaVoltarAoMenu);
+    SceneManager.LoadScene("MainMenu");
+}
 }
