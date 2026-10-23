@@ -25,9 +25,22 @@ public class CarController : MonoBehaviour
         new Keyframe(0f, 0f), new Keyframe(0.1f, 1f), new Keyframe(1f, 0.7f));
     [SerializeField] private float dragCoefficient = 4f;
 
+    [Header("Drift Settings")] // DRIFT
+    [SerializeField] private DriftController drift;
+    [Tooltip("Arrasto lateral durante o drift. Menor = escorrega mais (o normal é o Drag Coefficient acima)")]
+    [SerializeField] private float driftDragCoefficient = 1.5f;
+    [Tooltip("Multiplicador da aceleração enquanto o mini-turbo está ativo (dá o 'tranco')")]
+    [SerializeField] private float boostAccelerationMultiplier = 3f;
+    [Tooltip("Freio suave quando o kart está acima da velocidade máxima (fim do turbo)")]
+    [SerializeField] private float overspeedDeceleration = 10f;
+
     // Input (preenchido de fora, via SetInput)
     private float moveInput = 0f;
     private float steerInput = 0f;
+
+    // DRIFT
+    private bool driftHeld = false;           // preenchido de fora, via SetDrift
+    private float appliedSteerInput = 0f;     // esterço que o Turn() usa (mesmo sinal interno do steerInput)
 
     private Vector3 currentCarLocalVelocity = Vector3.zero;
     private float carVelocityRatio = 0f;
@@ -43,6 +56,11 @@ public class CarController : MonoBehaviour
     public float WheelRadius => wheelRadius;
     public float RestLength => restLength;
 
+    // DRIFT
+    public bool IsDrifting => drift != null && drift.EstaDerrapando;
+    private bool IsBoosting => drift != null && drift.EmTurbo;
+    private float CurrentMaxSpeed => maxSpeed * (drift != null ? drift.MultiplicadorVelocidade : 1f);
+
     public float GetSpringLength(int i) => springLengths[i];
 
     // Quem controla o carro (jogador, IA, replay...) chama isto.
@@ -52,11 +70,18 @@ public class CarController : MonoBehaviour
         steerInput = -Mathf.Clamp(steer, -1f, 1f);  // ALTERADO: modelo olha para -Z
     }
 
+    // DRIFT: o botão de drift também entra de fora, igual ao SetInput.
+    public void SetDrift(bool held)
+    {
+        driftHeld = held;
+    }
+
     #endregion
 
     private void Start()
     {
         if (carRB == null) carRB = GetComponent<Rigidbody>();
+        if (drift == null) drift = GetComponent<DriftController>(); // DRIFT
         carRB.centerOfMass = centerOfMass;
 
         wheelsIsGrounded = new int[rayPoints.Length];
@@ -70,8 +95,29 @@ public class CarController : MonoBehaviour
         Suspension();
         GroundCheck();
         CalculatorCarVelocity();
+        UpdateDrift(); // DRIFT
         Movment();
     }
+
+    #region Drift
+
+    private void UpdateDrift()
+    {
+        if (drift == null)
+        {
+            appliedSteerInput = steerInput;
+            return;
+        }
+
+        float playerSteer = -steerInput;                  // sinal do jogador: + = direita
+        float forwardSpeed = -currentCarLocalVelocity.z;  // positivo andando pra frente (frente do modelo = -Z)
+
+        float driftSteer = drift.Processar(playerSteer, driftHeld, forwardSpeed, isGrounded);
+
+        appliedSteerInput = -driftSteer;                  // volta pro sinal interno do steerInput
+    }
+
+    #endregion
 
     #region Movment
 
@@ -94,12 +140,20 @@ public class CarController : MonoBehaviour
     {
         // Só acelera se ainda não chegou na velocidade máxima
         // (ou se o jogador pede o sentido contrário ao que o carro anda).
-        bool underMaxSpeed = Mathf.Abs(currentCarLocalVelocity.z) < maxSpeed;
+        bool underMaxSpeed = Mathf.Abs(currentCarLocalVelocity.z) < CurrentMaxSpeed; // DRIFT: usa o máximo com turbo
         bool opposingMotion = Mathf.Sign(moveInput) != Mathf.Sign(currentCarLocalVelocity.z);
 
         if (underMaxSpeed || opposingMotion)
         {
-            carRB.AddForceAtPosition(acceleration * moveInput * transform.forward, accelerationpoint.position, ForceMode.Acceleration);
+            // DRIFT: durante o turbo a aceleração é maior, pra dar o tranco
+            float currentAcceleration = acceleration * (IsBoosting ? boostAccelerationMultiplier : 1f);
+            carRB.AddForceAtPosition(currentAcceleration * moveInput * transform.forward, accelerationpoint.position, ForceMode.Acceleration);
+        }
+        else
+        {
+            // DRIFT: acima do máximo (o turbo acabou): freia suave até voltar pra velocidade normal
+            float direction = -Mathf.Sign(currentCarLocalVelocity.z);
+            carRB.AddForceAtPosition(overspeedDeceleration * direction * transform.forward, accelerationpoint.position, ForceMode.Acceleration);
         }
     }
 
@@ -118,14 +172,18 @@ public class CarController : MonoBehaviour
         // Abs: a curva não tem valores negativos, então usamos a velocidade em módulo.
         // Mathf.Sign inverte o giro na ré.
         float curve = turningCurve.Evaluate(Mathf.Abs(carVelocityRatio));
-        carRB.AddTorque(steerStrength * steerInput * curve * Mathf.Sign(carVelocityRatio) * transform.up, ForceMode.Acceleration);
+
+        // DRIFT: usa o esterço já processado pelo DriftController (igual ao steerInput quando não está derrapando)
+        carRB.AddTorque(steerStrength * appliedSteerInput * curve * Mathf.Sign(carVelocityRatio) * transform.up, ForceMode.Acceleration);
     }
 
     private void SidewaysDrag()
     {
         float currentSidewaysSpeed = currentCarLocalVelocity.x;
 
-        float dragMagnitude = -currentSidewaysSpeed * dragCoefficient;
+        // DRIFT: menos aderência lateral enquanto derrapa, pro kart escorregar
+        float currentDrag = IsDrifting ? driftDragCoefficient : dragCoefficient;
+        float dragMagnitude = -currentSidewaysSpeed * currentDrag;
 
         Vector3 dragForce = transform.right * dragMagnitude;
 
