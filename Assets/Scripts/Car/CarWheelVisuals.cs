@@ -36,11 +36,7 @@ public class CarWheelVisuals : MonoBehaviour
 
     private void Start()
     {
-        if (car == null)
-        {
-            Debug.LogError($"{name}: CarWheelVisuals sem CarController. Atribua o campo Car.", this);
-            return;
-        }
+        
 
         foreach (Wheel w in wheels)
         {
@@ -92,11 +88,7 @@ public class CarWheelVisuals : MonoBehaviour
             ? sinal * (forwardSpeed / raio) * Mathf.Rad2Deg * Time.deltaTime
             : 0f;
 
-        if (logDebug && Time.frameCount % 30 == 0)
-        {
-            //Debug.Log($"[Rodas] speed={forwardSpeed:F2} steer={steerInput:F2} raio={raio:F2} " +
-                      //$"rest={car.RestLength:F3} mola0={car.GetSpringLength(0):F3} spinDelta={spinDelta:F2}", this);
-        }
+       
 
         for (int i = 0; i < wheels.Length; i++)
         {

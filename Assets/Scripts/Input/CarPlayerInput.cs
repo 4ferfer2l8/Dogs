@@ -10,21 +10,29 @@ public class CarPlayerInput : MonoBehaviour
     public bool PodeDirigir { get; set; } = false;
     public bool DriftSegurado { get; private set; }
 
-    private InputAction moveAction;
+    private InputAction steerAction;
+    private InputAction throttleAction;
     private InputAction driftAction;
+    private InputAction respawnAction;   
+private KartRespawn respawn; 
 
     private void Awake()
-    {
-        // Pega as actions da instância DESTE jogador, já pareadas com o dispositivo dele.
-        // Os nomes precisam ser iguais aos do Input Actions ("Move" e "Drift").
-        var playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions["Move"];
-        driftAction = playerInput.actions["Drift"];
-    }
+{
+    var playerInput = GetComponent<PlayerInput>();
 
+    // Lista tudo que o asset tem ANTES de procurar, pra aparecer mesmo se faltar alguma
+    foreach (var a in playerInput.actions)
+        Debug.Log($"Action no asset: '{a.name}'");
+
+    steerAction = playerInput.actions["Steer"];
+    throttleAction = playerInput.actions["Throttle"];
+    driftAction = playerInput.actions["Drift"];
+    respawnAction = playerInput.actions["Respawn"];  
+    respawn = GetComponent<KartRespawn>();   
+}
     private void Update()
     {
-        if (driftAction.WasPressedThisFrame()) Debug.Log("Espaço apertado | PodeDirigir = " + PodeDirigir);
+        if (driftAction.WasPressedThisFrame()) Debug.Log("Drift apertado | PodeDirigir = " + PodeDirigir);
         if (!PodeDirigir)
         {
             DriftSegurado = false;
@@ -32,11 +40,17 @@ public class CarPlayerInput : MonoBehaviour
             car.SetDrift(false);
             return;
         }
+        if (respawnAction.WasPressedThisFrame()) respawn.VoltarAoCheckpoint();
 
-        Vector2 move = moveAction.ReadValue<Vector2>();
+        float steer = steerAction.ReadValue<float>();
+        float throttle = throttleAction.ReadValue<float>();
         DriftSegurado = driftAction.IsPressed();
 
-        car.SetInput(move.y, move.x);
+        car.SetInput(throttle, steer);   // mesma ordem de antes: (move, steer)
         car.SetDrift(DriftSegurado);
     }
+    private void Start()
+{
+    Debug.Log("CarPlayerInput rodando em: " + name, this);
+}
 }

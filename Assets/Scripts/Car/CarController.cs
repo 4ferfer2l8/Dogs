@@ -20,12 +20,16 @@ public class CarController : MonoBehaviour
     [SerializeField] private float acceleration = 14f;
     [SerializeField] private float maxSpeed = 25f;
     [SerializeField] private float deceleration = 6f;
-    [SerializeField] private float steerStrength = 8f;
+    [SerializeField] private float steerStrength = 3.5f;
     [SerializeField] private AnimationCurve turningCurve = new AnimationCurve(
-        new Keyframe(0f, 0f), new Keyframe(0.1f, 1f), new Keyframe(1f, 0.7f));
+        new Keyframe(0f, 0f), new Keyframe(0.15f, 1f), new Keyframe(1f, 0.35f));
     [SerializeField] private float dragCoefficient = 4f;
+    [SerializeField] private float maxYawRate = 1.3f;
 
     [Header("Drift Settings")] // DRIFT
+
+    [SerializeField] private float dirftSteerMutiplier = 1.5f;
+    [SerializeField] private float driftMaxYawRate = 2f; 
     [SerializeField] private DriftController drift;
     [Tooltip("Arrasto lateral durante o drift. Menor = escorrega mais (o normal é o Drag Coefficient acima)")]
     [SerializeField] private float driftDragCoefficient = 1.5f;
@@ -33,14 +37,15 @@ public class CarController : MonoBehaviour
     [SerializeField] private float boostAccelerationMultiplier = 3f;
     [Tooltip("Freio suave quando o kart está acima da velocidade máxima (fim do turbo)")]
     [SerializeField] private float overspeedDeceleration = 10f;
+    [SerializeField] private float driftSteerMultiplier = 1.5f;
 
     // Input (preenchido de fora, via SetInput)
     private float moveInput = 0f;
     private float steerInput = 0f;
 
     // DRIFT
-    private bool driftHeld = false;           // preenchido de fora, via SetDrift
-    private float appliedSteerInput = 0f;     // esterço que o Turn() usa (mesmo sinal interno do steerInput)
+    private bool driftHeld = false;           
+    private float appliedSteerInput = 0f;     
 
     private Vector3 currentCarLocalVelocity = Vector3.zero;
     private float carVelocityRatio = 0f;
@@ -51,7 +56,7 @@ public class CarController : MonoBehaviour
 
     #region Public API (input + dados para as rodas)
 
-    public float SteerInput => -steerInput;   // ALTERADO: sinal invertido para as rodas esterçarem certo
+    public float SteerInput => -steerInput;  
     public float ForwardSpeed => currentCarLocalVelocity.z;
     public float WheelRadius => wheelRadius;
     public float RestLength => restLength;
@@ -63,14 +68,14 @@ public class CarController : MonoBehaviour
 
     public float GetSpringLength(int i) => springLengths[i];
 
-    // Quem controla o carro (jogador, IA, replay...) chama isto.
+    
     public void SetInput(float move, float steer)
     {
-        moveInput = -Mathf.Clamp(move, -1f, 1f);    // ALTERADO: modelo olha para -Z
-        steerInput = -Mathf.Clamp(steer, -1f, 1f);  // ALTERADO: modelo olha para -Z
+        moveInput = -Mathf.Clamp(move, -1f, 1f);   
+        steerInput = -Mathf.Clamp(steer, -1f, 1f);  
     }
 
-    // DRIFT: o botão de drift também entra de fora, igual ao SetInput.
+   
     public void SetDrift(bool held)
     {
         driftHeld = held;
@@ -169,12 +174,18 @@ public class CarController : MonoBehaviour
 
     private void Turn()
     {
-        // Abs: a curva não tem valores negativos, então usamos a velocidade em módulo.
-        // Mathf.Sign inverte o giro na ré.
-        float curve = turningCurve.Evaluate(Mathf.Abs(carVelocityRatio));
+        
+       float curve = turningCurve.Evaluate(Mathf.Abs(carVelocityRatio));
+    float steerMult = IsDrifting ? driftSteerMultiplier : 1f;
 
-        // DRIFT: usa o esterço já processado pelo DriftController (igual ao steerInput quando não está derrapando)
-        carRB.AddTorque(steerStrength * appliedSteerInput * curve * Mathf.Sign(carVelocityRatio) * transform.up, ForceMode.Acceleration);
+    // DRIFT: usa o esterço já processado pelo DriftController (igual ao steerInput quando não está derrapando)
+    carRB.AddTorque(steerStrength * steerMult * appliedSteerInput * curve * Mathf.Sign(carVelocityRatio) * transform.up, ForceMode.Acceleration);
+
+    // Teto de giro, em espaço local pra respeitar a inclinação do terreno
+    float yawLimit = IsDrifting ? driftMaxYawRate : maxYawRate;
+    Vector3 localAngVel = transform.InverseTransformDirection(carRB.angularVelocity);
+    localAngVel.y = Mathf.Clamp(localAngVel.y, -yawLimit, yawLimit);
+    carRB.angularVelocity = transform.TransformDirection(localAngVel);
     }
 
     private void SidewaysDrag()
