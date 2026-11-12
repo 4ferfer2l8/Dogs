@@ -540,6 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LargadaDaCorrida
   segundos: 3
+  jogadoresParaComecar: 1
 --- !u!114 &646503026
 MonoBehaviour:
   m_ObjectHideFlags: 0
