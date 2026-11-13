@@ -125,8 +125,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 340cda93a97f67e488f816d093de38ee
-      internalID: 997863076
+      spriteID: e3a2decff854b524f9fce882b07506ef
+      internalID: -1409860855
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f77f0f19d78451d42ba090dc69637eb5
-      internalID: -953199838
+      spriteID: eff18c7fa12bf4545bf183a8ad7bd3e6
+      internalID: -792160897
       vertices: []
       indices: 
       edges: []
@@ -169,8 +169,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bc4315bc4c1d0546a9e10a9688ee8b1
-      internalID: 1821347578
+      spriteID: d4026de31531f904e9f2ca2275b108b3
+      internalID: -1524541735
       vertices: []
       indices: 
       edges: []
@@ -179,7 +179,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1e14684af858ba2438fecd4c92f44183
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -191,9 +191,9 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      1 voltas_0: 997863076
-      1 voltas_1: -953199838
-      1 voltas_2: 1821347578
+      1 voltas_0: -1409860855
+      1 voltas_1: -792160897
+      1 voltas_2: -1524541735
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
