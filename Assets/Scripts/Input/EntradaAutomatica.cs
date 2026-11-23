@@ -7,13 +7,12 @@ public class EntradaAutomatica : MonoBehaviour
     {
         var manager = PlayerInputManager.instance;
 
-        // Jogador 1: teclado
-        if (Keyboard.current != null)
-            manager.JoinPlayer(playerIndex: 0, pairWithDevice: Keyboard.current);
+        manager.JoinPlayer(0, -1, "TecladoEsquerda", Keyboard.current);
 
-        // Jogador 2: primeiro gamepad conectado
         if (Gamepad.current != null)
-            manager.JoinPlayer(playerIndex: 1, pairWithDevice: Gamepad.current);
+            manager.JoinPlayer(1, -1, "Gamepad", Gamepad.current);
+        else
+            manager.JoinPlayer(1, -1, "TecladoDireita", Keyboard.current);
     }
 
     public void Start()
