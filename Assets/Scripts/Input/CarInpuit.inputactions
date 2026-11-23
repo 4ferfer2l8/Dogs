@@ -54,7 +54,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";TecladoEsquerda",
                     "action": "Drift",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -65,7 +65,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Drift",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -87,7 +87,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";TecladoEsquerda",
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -98,7 +98,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";TecladoEsquerda",
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -109,7 +109,7 @@
                     "path": "<Gamepad>/leftStick/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -131,7 +131,7 @@
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -142,7 +142,7 @@
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -164,7 +164,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";TecladoEsquerda",
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -175,7 +175,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";TecladoEsquerda",
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -197,7 +197,7 @@
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -208,7 +208,7 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -230,7 +230,7 @@
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";TecladoDireita",
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -241,7 +241,7 @@
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";TecladoDireita",
                     "action": "Throttle",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -252,7 +252,7 @@
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Respawn",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -263,7 +263,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";TecladoEsquerda",
                     "action": "Respawn",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -271,5 +271,39 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "TecladoEsquerda",
+            "bindingGroup": "TecladoEsquerda",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "TecladoDireita",
+            "bindingGroup": "TecladoDireita",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
