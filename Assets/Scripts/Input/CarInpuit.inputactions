@@ -71,6 +71,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "01fe46ef-6a6f-4e34-8d14-488f3df98c92",
+                    "path": "<Keyboard>/rightCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";TecladoDireita",
+                    "action": "Drift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "1D Axis",
                     "id": "6c4800dc-a3cf-476c-bdd7-e123ef7cd780",
                     "path": "1DAxis(whichSideWins=1)",
@@ -264,6 +275,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";TecladoEsquerda",
+                    "action": "Respawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7c4a5a9-2557-403a-ae1e-57318a786c97",
+                    "path": "<Keyboard>/backspace",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";TecladoDireita",
                     "action": "Respawn",
                     "isComposite": false,
                     "isPartOfComposite": false
