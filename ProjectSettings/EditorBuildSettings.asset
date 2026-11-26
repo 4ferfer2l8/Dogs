@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: a416fb7bb267996499a090f99fd1b42e
   - enabled: 1
-    path: Assets/Scenes/Corrida.unity
+    path: Assets/Scenes/Tutorial.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Corrida.unity
+    guid: 68e8a846eb36f9448933050047031166
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 93de9619590f9d142a9beb3b30cb7f03, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

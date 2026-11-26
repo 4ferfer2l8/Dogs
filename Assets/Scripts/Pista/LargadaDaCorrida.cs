@@ -36,6 +36,7 @@ public class LargadaDaCorrida : MonoBehaviour
 
     private void TentarIniciarContagem()
     {
+        Debug.Log($"[Largada] tentando iniciar | pilotos: {pilotos.Count} | aguardar: {aguardarLiberacao} | liberada: {liberada}");
         if (contagemIniciada) return;
         if (pilotos.Count < jogadoresParaComecar) return;
         if (aguardarLiberacao && !liberada) return;
@@ -48,7 +49,6 @@ public class LargadaDaCorrida : MonoBehaviour
     {
         Debug.Log("[Largada] contagem iniciada");
 
-        // Deixa os HUDs dos karts recém-criados se inscreverem antes de contar
         yield return null;
 
         for (int i = segundos; i > 0; i--)
