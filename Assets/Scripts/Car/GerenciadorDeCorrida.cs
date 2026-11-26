@@ -12,12 +12,6 @@ public class GerenciadorDeCorrida : MonoBehaviour
     // true = venceu, false = perdeu
     public event Action<ProgressoNaCorrida, bool> AoDefinirResultado;
 
-    // Teste: libera sozinho após 3s. Troque pela sua contagem quando tiver uma.
-    private void Start()
-    {
-        Invoke(nameof(LiberarLargada), 3f);
-    }
-
     public void RegistrarJogador(PlayerInput jogador)
     {
         var progresso = jogador.GetComponentInChildren<ProgressoNaCorrida>();

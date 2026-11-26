@@ -8,6 +8,10 @@ public class LargadaDaCorrida : MonoBehaviour
     [SerializeField] private int segundos = 3;
     [SerializeField] private int jogadoresParaComecar = 2;
 
+    [SerializeField] private bool aguardarLiberacao = false;
+
+    private bool liberada = false;
+
     private readonly List<CarPlayerInput> pilotos = new();
     private bool contagemIniciada;
 
@@ -16,18 +20,28 @@ public class LargadaDaCorrida : MonoBehaviour
     public void RegistrarJogador(PlayerInput jogador)
     {
         var piloto = jogador.GetComponentInChildren<CarPlayerInput>();
-        Debug.Log($"[Largada] RegistrarJogador chamado | piloto encontrado? {piloto != null} | pilotos até agora: {pilotos.Count}");
         if (piloto == null) return;
 
         piloto.PodeDirigir = false;
         pilotos.Add(piloto);
 
-        // Quando todos os jogadores esperados entrarem, começa a contagem
-        if (!contagemIniciada && pilotos.Count >= jogadoresParaComecar)
-        {
-            contagemIniciada = true;
-            StartCoroutine(Contagem());
-        }
+        TentarIniciarContagem();
+    }
+
+    public void LiberarLargada()
+    {
+        liberada = true;
+        TentarIniciarContagem();
+    }
+
+    private void TentarIniciarContagem()
+    {
+        if (contagemIniciada) return;
+        if (pilotos.Count < jogadoresParaComecar) return;
+        if (aguardarLiberacao && !liberada) return;
+
+        contagemIniciada = true;
+        StartCoroutine(Contagem());
     }
 
     private IEnumerator Contagem()
@@ -52,4 +66,5 @@ public class LargadaDaCorrida : MonoBehaviour
         yield return new WaitForSeconds(1f);
         AoAtualizarContagem?.Invoke("");
     }
+
 }

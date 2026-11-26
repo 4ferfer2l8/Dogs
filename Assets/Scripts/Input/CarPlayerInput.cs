@@ -7,7 +7,16 @@ public class CarPlayerInput : MonoBehaviour
 {
     [SerializeField] private CarController car;
 
-    public bool PodeDirigir { get; set; } = false;
+    private bool podeDirigir = false;
+public bool PodeDirigir
+{
+    get => podeDirigir;
+    set
+    {
+        podeDirigir = value;
+        Debug.Log($"[{name}] PodeDirigir = {value}\n{System.Environment.StackTrace}");
+    }
+}
     public bool DriftSegurado { get; private set; }
 
     private InputAction steerAction;
