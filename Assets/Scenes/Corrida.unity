@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d229d195c075304f8a4d1582c2de13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopupTutorial
-  popup: {fileID: 501519208}
+  popup: {fileID: 315419600}
   largada: {fileID: 646503025}
 --- !u!1 &77773386
 GameObject:
