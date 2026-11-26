@@ -1,11 +1,13 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HudResultado : MonoBehaviour
 {
     [SerializeField] private ProgressoNaCorrida progresso;
-    [SerializeField] private GameObject painel;      // fundo escuro + texto
-    [SerializeField] private TMP_Text textoResultado;
+    [SerializeField] private GameObject painel;
+    [SerializeField] private Image imagemResultado;
+    [SerializeField] private Sprite spriteVitoria;
+    [SerializeField] private Sprite spriteDerrota;
 
     private GerenciadorDeCorrida corrida;
 
@@ -26,10 +28,9 @@ public class HudResultado : MonoBehaviour
 
     private void Mostrar(ProgressoNaCorrida quem, bool venceu)
     {
-        // Só reage ao resultado do SEU jogador
         if (quem != progresso) return;
 
         painel.SetActive(true);
-        textoResultado.text = venceu ? "VITÓRIA" : "DERROTA";
+        imagemResultado.sprite = venceu ? spriteVitoria : spriteDerrota;
     }
 }
