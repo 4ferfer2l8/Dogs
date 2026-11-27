@@ -319,7 +319,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HudVoltas
   progresso: {fileID: 3134317763166013843}
-  textoVoltas: {fileID: 6719908793313370854}
+  imagemVoltaAtual: {fileID: 0}
+  imagemTotalVoltas: {fileID: 0}
+  spritesNumeros: []
   totalDeVoltas: 3
 --- !u!114 &3995455115397293679
 MonoBehaviour:
@@ -335,7 +337,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HudResultado
   progresso: {fileID: 3134317763166013843}
   painel: {fileID: 8164941827610800535}
-  textoResultado: {fileID: 8143204169631395757}
+  imagemResultado: {fileID: 0}
+  spriteVitoria: {fileID: 0}
+  spriteDerrota: {fileID: 0}
 --- !u!114 &2157436238159236936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +352,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7254e475107b7b45958e740ee550479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HudContagem
-  texto: {fileID: 3194215347041464509}
+  imagem: {fileID: 0}
+  spritesNumeros: []
+  spriteVai: {fileID: 0}
 --- !u!1 &3937923575127205134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,7 +1182,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressoNaCorrida
   totalDeCheckpoints: 5
-  voltasParaVencer: 1
+  voltasParaVencer: 3
+  tempoParaVoltarAoMenu: 5
 --- !u!65 &2002696631241893228
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1252,8 +1259,20 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 51ba531d-9517-4cfd-bf2a-6611c3a7f67e
-    m_ActionName: 'Car/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+    m_ActionId: f9067383-8c9e-4960-8ffd-b37ef604f08d
+    m_ActionName: 'Car/Drift[/Keyboard/space,/Keyboard/rightCtrl]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e8e6fe1e-c721-47fc-b5c5-cee1d4e29c2c
+    m_ActionName: 'Car/Steer[/Keyboard/a,/Keyboard/d,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dc38db15-165c-4abd-97ac-c26c4037362d
+    m_ActionName: 'Car/Throttle[/Keyboard/s,/Keyboard/w,/Keyboard/downArrow,/Keyboard/upArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8ad3a869-e335-4c61-a0a8-b38a0ad8cadb
+    m_ActionName: 'Car/Respawn[/Keyboard/r,/Keyboard/backspace]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Car
@@ -1338,6 +1357,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   dragCoefficient: 4
+  maxYawRate: 1.3
+  dirftSteerMutiplier: 1.5
+  driftMaxYawRate: 2
+  drift: {fileID: 0}
+  driftDragCoefficient: 1.5
+  boostAccelerationMultiplier: 3
+  overspeedDeceleration: 10
+  driftSteerMultiplier: 1.5
 --- !u!114 &8977743638534351453
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13735,7 +13735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressoNaCorrida
   totalDeCheckpoints: 5
-  voltasParaVencer: 1
+  voltasParaVencer: 3
   tempoParaVoltarAoMenu: 5
 --- !u!114 &7141495877696883863
 MonoBehaviour:
